@@ -1,14 +1,17 @@
+import Image from "next/image";
 import React from "react";
 
 const Sidebar = () => {
   return (
-    <div className="min-h-screen">
+    <div>
       <aside className="w-full md:w-64 bg-white p-4 shadow-md">
-        <div className="flex justify-center mb-6">
-          <img
-            src="logo.jfif"
+        <div className="flex justify-center mb-6 ">
+          <Image
+            src="/logo.jfif"
             alt="logo"
-            className="w-16 h-16 md:w-20 md:h-20 object-contain rounded-full"
+            width={80}
+            height={80}
+            className="object-contain rounded-full"
           />
         </div>
         <nav className="space-y-2">
