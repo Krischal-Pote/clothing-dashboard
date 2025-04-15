@@ -3,7 +3,10 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
-
+import data from "@/data/dataset.json";
+import StatCard from "@/components/StatCard";
+import TopProducts from "@/components/TopProducts";
+import SalesChart from "@/components/SalesChart";
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
 
@@ -45,20 +48,21 @@ export default async function DashboardPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div className="bg-white p-4 rounded shadow">
+            {/* <div className="bg-white p-4 rounded shadow">
               <h2 className="text-lg font-semibold mb-4">
                 Top Selling Products
               </h2>
               <ProductItem name="Premium Hoodie" price="$59.99" />
               <ProductItem name="Classic Cardigan" price="$79.99" />
               <ProductItem name="Sweatshirt" price="$46.99" />
-            </div>
-
+            </div> */}
+            <TopProducts sales={data.sales} />
             <div className="bg-white p-4 rounded shadow">
-              <h2 className="text-lg font-semibold mb-4">Sales by Category</h2>
+              {/* <h2 className="text-lg font-semibold mb-4">Sales by Category</h2>
               <CategoryBar label="Women" percent={40} />
               <CategoryBar label="Men" percent={40} />
-              <CategoryBar label="Accessories" percent={20} />
+              <CategoryBar label="Accessories" percent={20} /> */}
+              <SalesChart sales={data.sales} />
             </div>
           </div>
 
@@ -74,24 +78,6 @@ export default async function DashboardPage() {
           </div>
         </main>
       </div>
-    </div>
-  );
-}
-
-function StatCard({
-  title,
-  value,
-  change,
-}: {
-  title: string;
-  value: string;
-  change: string;
-}) {
-  return (
-    <div className="bg-white p-4 rounded shadow">
-      <h3 className="text-sm text-gray-500 mb-1">{title}</h3>
-      <p className="text-xl font-bold">{value}</p>
-      <p className="text-xs text-green-600 mt-1">{change}</p>
     </div>
   );
 }

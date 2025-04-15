@@ -1,29 +1,39 @@
 {
   "sales": [
     {
-      "product": "Hoodie",
+      "product": "Premium Hoodie",
       "category": "Men",
       "unitsSold": 120,
-      "revenue": 2400
+      "revenue": 2400,
+      "price": "$59.99"
     },
     {
       "product": "Sweatshirt",
       "category": "Women",
       "unitsSold": 80,
-      "revenue": 1600
+      "revenue": 1600,
+      "price": "$46.99"
     },
-    { "product": "Tee", "category": "Men", "unitsSold": 150, "revenue": 2250 },
     {
-      "product": "Cardigan",
+      "product": "T-shirt",
+      "category": "Men",
+      "unitsSold": 150,
+      "revenue": 2250,
+      "price": "$46.99"
+    },
+    {
+      "product": "Classic Cardigan",
       "category": "Women",
       "unitsSold": 90,
-      "revenue": 1800
+      "revenue": 1800,
+      "price": "$79.99"
     },
     {
       "product": "Tank Top",
       "category": "Tops",
       "unitsSold": 50,
-      "revenue": 1000
+      "revenue": 1000,
+      "price": "$46.99"
     }
   ]
 }
