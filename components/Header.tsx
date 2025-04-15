@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { useRouter } from "next/router";
 
 const getTitleFromPath = (path: string) => {
   const map: Record<string, string> = {
@@ -13,7 +12,7 @@ const getTitleFromPath = (path: string) => {
   return map[path] || "Dashboard";
 };
 
-const Header = ({ session }) => {
+const Header = ({ session }: any) => {
   const imageUrl = session?.user?.image?.split("=")[0] || "/new_icon.png";
   const pathname = usePathname();
   const [dropdownOpen, setDropdownOpen] = useState(false);

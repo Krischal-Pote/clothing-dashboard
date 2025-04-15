@@ -7,6 +7,7 @@ import data from "@/data/dataset.json";
 import StatCard from "@/components/StatCard";
 import TopProducts from "@/components/TopProducts";
 import SalesChart from "@/components/SalesChart";
+import EngagementStat from "@/components/EngagementStat";
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
 
@@ -26,21 +27,25 @@ export default async function DashboardPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
             <StatCard
+              id="1"
               title="Total Revenue"
               value="$124,563.00"
               change="+20.1% from last month"
             />
             <StatCard
+              id="2"
               title="Total Orders"
               value="1,463"
               change="+6.2% from last month"
             />
             <StatCard
+              id="3"
               title="Average Order Value"
               value="$85.12"
               change="-2.4% from last month"
             />
             <StatCard
+              id="4"
               title="Customer Satisfaction"
               value="94.8%"
               change="+3.1% from last month"
@@ -48,25 +53,13 @@ export default async function DashboardPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            {/* <div className="bg-white p-4 rounded shadow">
-              <h2 className="text-lg font-semibold mb-4">
-                Top Selling Products
-              </h2>
-              <ProductItem name="Premium Hoodie" price="$59.99" />
-              <ProductItem name="Classic Cardigan" price="$79.99" />
-              <ProductItem name="Sweatshirt" price="$46.99" />
-            </div> */}
             <TopProducts sales={data.sales} />
             <div className="bg-white p-4 rounded shadow">
-              {/* <h2 className="text-lg font-semibold mb-4">Sales by Category</h2>
-              <CategoryBar label="Women" percent={40} />
-              <CategoryBar label="Men" percent={40} />
-              <CategoryBar label="Accessories" percent={20} /> */}
               <SalesChart sales={data.sales} />
             </div>
           </div>
-
-          <div className="bg-white p-4 rounded shadow">
+          <EngagementStat />
+          {/* <div className="bg-white p-4 rounded shadow">
             <h2 className="text-lg font-semibold mb-4">
               Customer Engagement Metrics
             </h2>
@@ -75,44 +68,18 @@ export default async function DashboardPage() {
               <EngagementStat label="Website Visits" value="2,456" />
               <EngagementStat label="Avg. Product Rating" value="4.8/5.0" />
             </div>
-          </div>
+          </div> */}
         </main>
       </div>
     </div>
   );
 }
 
-function ProductItem({ name, price }: { name: string; price: string }) {
-  return (
-    <div className="flex items-center justify-between py-2 border-b last:border-b-0">
-      <span>{name}</span>
-      <span className="font-semibold">{price}</span>
-    </div>
-  );
-}
-
-function CategoryBar({ label, percent }: { label: string; percent: number }) {
-  return (
-    <div className="mb-4">
-      <div className="flex justify-between text-sm mb-1">
-        <span>{label}</span>
-        <span>{percent}%</span>
-      </div>
-      <div className="w-full bg-gray-200 rounded-full h-2">
-        <div
-          className="bg-red-500 h-2 rounded-full"
-          style={{ width: `${percent}%` }}
-        ></div>
-      </div>
-    </div>
-  );
-}
-
-function EngagementStat({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="text-center">
-      <div className="text-lg font-bold text-red-600 mb-1">{value}</div>
-      <div className="text-sm text-gray-600">{label}</div>
-    </div>
-  );
-}
+// function EngagementStat({ label, value }: { label: string; value: string }) {
+//   return (
+//     <div className="text-center">
+//       <div className="text-lg font-bold text-red-600 mb-1">{value}</div>
+//       <div className="text-sm text-gray-600">{label}</div>
+//     </div>
+//   );
+// }
