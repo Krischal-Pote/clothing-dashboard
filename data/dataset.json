@@ -1,0 +1,29 @@
+{
+  "sales": [
+    {
+      "product": "Hoodie",
+      "category": "Men",
+      "unitsSold": 120,
+      "revenue": 2400
+    },
+    {
+      "product": "Sweatshirt",
+      "category": "Women",
+      "unitsSold": 80,
+      "revenue": 1600
+    },
+    { "product": "Tee", "category": "Men", "unitsSold": 150, "revenue": 2250 },
+    {
+      "product": "Cardigan",
+      "category": "Women",
+      "unitsSold": 90,
+      "revenue": 1800
+    },
+    {
+      "product": "Tank Top",
+      "category": "Tops",
+      "unitsSold": 50,
+      "revenue": 1000
+    }
+  ]
+}
