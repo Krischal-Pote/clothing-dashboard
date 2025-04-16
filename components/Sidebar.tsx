@@ -30,7 +30,7 @@ const Sidebar = () => {
     {
       href: "/customers",
       label: "Customers",
-      icon: <CustomerIcon color="currentColor" />,
+      icon: <CustomerIcon color="currentColor" width="20" height="16" />,
     },
   ];
 

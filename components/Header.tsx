@@ -6,7 +6,7 @@ import { signOut } from "next-auth/react";
 const getTitleFromPath = (path: string) => {
   const map: Record<string, string> = {
     "/dashboard": "Dashboard Overview",
-    "/products": "Products",
+    "/products": "Products Management",
     "/customers": "Customers",
   };
   return map[path] || "Dashboard";
@@ -41,7 +41,9 @@ const Header = ({ session }: any) => {
         <h2 className="text-lg md:text-xl font-semibold">
           {getTitleFromPath(pathname)}
         </h2>
-        <p className="text-sm text-gray-500">Welcome back, Admin</p>
+        {pathname === "/products" ? null : (
+          <p className="text-sm text-gray-500">Welcome back, Admin</p>
+        )}
       </div>
 
       <div className="flex items-center gap-4">

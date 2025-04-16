@@ -24,11 +24,19 @@ export const TIcon = ({ color }: any) => {
   );
 };
 
-export const CustomerIcon = ({ color }: any) => {
+export const CustomerIcon = ({
+  color,
+  width,
+  height,
+}: {
+  color?: string;
+  width?: string;
+  height?: string;
+}) => {
   return (
     <svg
-      width="31"
-      height="24"
+      width={width || 31}
+      height={height || 24}
       viewBox="0 0 31 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
