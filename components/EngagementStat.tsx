@@ -7,7 +7,6 @@ const EngagementStat = () => {
         Customer Engagement Metrics
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {/* Return Rate */}
         <div className="bg-[#f9f9f9] rounded-xl flex flex-col items-center justify-center py-4 px-2">
           <div className="text-[#993333] mb-1">
             <CustomerIcon color={"#993333"} />
@@ -17,7 +16,6 @@ const EngagementStat = () => {
           <p className="text-lg font-bold text-[#333333]">68%</p>
         </div>
 
-        {/* Wishlist Items */}
         <div className="bg-[#f9f9f9] rounded-xl flex flex-col items-center justify-center py-4 px-2">
           <div className="text-[#993333] mb-1">
             <HeartIcon />
@@ -26,7 +24,6 @@ const EngagementStat = () => {
           <p className="text-lg font-bold text-[#333333]">2,456</p>
         </div>
 
-        {/* Average Rating */}
         <div className="bg-[#f9f9f9] rounded-xl flex flex-col items-center justify-center py-4 px-2">
           <div className="text-[#993333] mb-1">
             <StarIcon />

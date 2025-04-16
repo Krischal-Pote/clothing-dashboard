@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 
@@ -16,6 +16,24 @@ const Header = ({ session }: any) => {
   const imageUrl = session?.user?.image?.split("=")[0] || "/new_icon.png";
   const pathname = usePathname();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <header className="flex justify-between items-center px-4 py-3 bg-white shadow-sm w-full">
@@ -35,11 +53,11 @@ const Header = ({ session }: any) => {
           />
         </div>
 
-        <div className="relative">
+        <div className="relative" ref={dropdownRef}>
           <img
             src={imageUrl}
             alt="profile"
-            className="w-10 h-10 rounded-full cursor-pointer "
+            className="w-10 h-10 rounded-full cursor-pointer"
             onClick={() => setDropdownOpen(!dropdownOpen)}
           />
           {dropdownOpen && (
