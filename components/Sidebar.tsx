@@ -56,14 +56,16 @@ const Sidebar = () => {
           </button>
         </div>
 
-        <div className="flex justify-center mb-6">
-          <Image
-            src="/logo.jfif"
-            alt="logo"
-            width={80}
-            height={80}
-            className="object-contain rounded-full"
-          />
+        <div className="flex justify-center mb-6 cursor-pointer">
+          <Link href={"/dashboard"}>
+            <Image
+              src="/logo.jfif"
+              alt="logo"
+              width={80}
+              height={80}
+              className="object-contain rounded-full"
+            />
+          </Link>
         </div>
 
         <nav className="space-y-2">

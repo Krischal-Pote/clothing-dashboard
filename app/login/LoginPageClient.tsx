@@ -1,10 +1,9 @@
 "use client";
 import { signIn } from "next-auth/react";
-import Image from "next/image";
 
 export default function LoginPageClient() {
   return (
-    <div className="relative flex items-center justify-center min-h-screen bg-[#FFFFFF] overflow-hidden">
+    <main className="relative flex items-center justify-center min-h-screen bg-[#FFFFFF] overflow-hidden">
       <div className="absolute top-0 right-0 w-48 h-48 bg-[#993333] opacity-20 rounded-full filter blur-3xl translate-x-1/3 -translate-y-1/3"></div>
       <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#993333] opacity-20 rounded-full filter blur-3xl -translate-x-1/3 translate-y-1/3"></div>
 
@@ -51,6 +50,6 @@ export default function LoginPageClient() {
           </a>
         </p>
       </div>
-    </div>
+    </main>
   );
 }
