@@ -3,7 +3,6 @@ import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import React, { useEffect, useState } from "react";
 import CommonTable from "@/components/CommonTable";
-import { Modal } from "antd";
 import CusstomModal from "@/components/CustomModal";
 
 const ProductsPage = () => {
@@ -11,19 +10,26 @@ const ProductsPage = () => {
   const [products, setProducts] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load products from localStorage on component mount
   useEffect(() => {
     const storedProducts = localStorage.getItem("products");
     if (storedProducts) {
-      setProducts(JSON.parse(storedProducts));
+      try {
+        setProducts(JSON.parse(storedProducts));
+      } catch (error) {
+        console.error("Error parsing products from localStorage:", error);
+        setProducts([]);
+      }
     }
+    setIsLoaded(true);
   }, []);
 
-  // Save products to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem("products", JSON.stringify(products));
-  }, [products]);
+    if (isLoaded && products.length >= 0) {
+      localStorage.setItem("products", JSON.stringify(products));
+    }
+  }, [products, isLoaded]);
 
   const openModal = () => {
     setIsEditing(false);
@@ -37,11 +43,11 @@ const ProductsPage = () => {
     setIsEditing(false);
   };
 
-  const addProduct = (product: string) => {
+  const addProduct = (product) => {
     setProducts([...products, product]);
   };
 
-  const editProduct = (product: string) => {
+  const editProduct = (product) => {
     setProducts(products.map((p) => (p.id === product.id ? product : p)));
   };
 
@@ -54,6 +60,7 @@ const ProductsPage = () => {
   const handleDelete = (productId) => {
     setProducts(products.filter((p) => p.id !== productId));
   };
+
   return (
     <main className="min-h-screen bg-gray-100 text-gray-800">
       <div className="flex flex-col md:flex-row">

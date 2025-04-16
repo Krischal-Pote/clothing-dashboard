@@ -1,11 +1,10 @@
 "use client";
 
 import React from "react";
-import { Space, Table, Tag } from "antd";
+import { Space, Table, Spin } from "antd";
 import type { TableProps } from "antd";
-// import { Edit, Trash2 } from "lucide-react";
+import { DeleteIcon, EditIcon } from "@/icons/SvgCollection";
 
-// Updated interface to match product data structure
 export interface ProductType {
   id: string;
   productName: string;
@@ -43,13 +42,17 @@ const CommonTable: React.FC<CommonTableProps> = ({
 
   const columns: TableProps<ProductType>["columns"] = [
     {
+      title: "id",
+      dataIndex: "id",
+      key: "id",
+    },
+    {
       title: "Product",
       dataIndex: "productName",
       key: "product",
       render: (text, record) => (
         <div className="flex items-center">
           <div className="font-medium">{text}</div>
-          <div className="text-xs text-gray-500">{record.id}</div>
         </div>
       ),
     },
@@ -95,23 +98,26 @@ const CommonTable: React.FC<CommonTableProps> = ({
       key: "stock",
     },
     {
+      title: "Release Date",
+      dataIndex: "releaseDate",
+      key: "releaseDate",
+    },
+    {
       title: "Action",
       key: "action",
       render: (_, record) => (
         <Space size="middle">
           <button
             onClick={() => onEdit(record)}
-            className="text-[#993333] hover:text-[#7a2929] transition-colors"
+            className="text-[#993333] hover:text-[#7a2929] transition-colors cursor-pointer"
           >
-            {/* <Edit size={16} /> */}
-            edit
+            <EditIcon />
           </button>
           <button
             onClick={() => onDelete(record.id)}
-            className="text-red-600 hover:text-red-800 transition-colors"
+            className="text-red-600 hover:text-red-800 transition-colors cursor-pointer"
           >
-            {/* <Trash2 size={16} /> */}
-            delete
+            <DeleteIcon />
           </button>
         </Space>
       ),
@@ -119,12 +125,14 @@ const CommonTable: React.FC<CommonTableProps> = ({
   ];
 
   return (
-    <Table<ProductType>
-      columns={columns}
-      dataSource={data.map((item) => ({ ...item, key: item.id }))}
-      pagination={{ pageSize: 5, position: ["bottomRight"] }}
-      className="product-table"
-    />
+    <div className="relative">
+      <Table<ProductType>
+        columns={columns}
+        dataSource={data.map((item) => ({ ...item, key: item.id }))}
+        pagination={{ pageSize: 5, position: ["bottomRight"] }}
+        className="product-table"
+      />
+    </div>
   );
 };
 

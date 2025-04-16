@@ -1,9 +1,6 @@
 "use client";
-import Header from "@/components/Header";
-import Sidebar from "@/components/Sidebar";
+import { CloseIcon } from "@/icons/SvgCollection";
 import React, { useState, useEffect } from "react";
-import CommonTable from "@/components/CommonTable";
-// import { XCircle } from "lucide-react";
 
 const CustomModal = ({
   isOpen,
@@ -21,8 +18,7 @@ const CustomModal = ({
     "Home & Kitchen",
   ];
 
-  // Initialize form data
-  const [formData, setFormData] = useState({
+  const initialFormState = {
     id: "",
     productName: "",
     category: "",
@@ -34,32 +30,21 @@ const CustomModal = ({
       XL: false,
     },
     price: "",
-    currency: "USD",
+    currency: "AUD",
     stock: "",
     releaseDate: "",
-  });
+  };
 
-  // Update form data when editing a product
+  const [formData, setFormData] = useState(initialFormState);
+
   useEffect(() => {
     if (isEditing && productData) {
       setFormData(productData);
     } else {
-      // Reset form when adding a new product
-      setFormData({
-        id: "",
-        productName: "",
-        category: "",
-        color: "",
-        sizes: { S: false, M: false, L: false, XL: false },
-        price: "",
-        currency: "USD",
-        stock: "",
-        releaseDate: "",
-      });
+      setFormData(initialFormState);
     }
-  }, [isEditing, productData]);
+  }, [isEditing, productData, isOpen]);
 
-  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -68,7 +53,6 @@ const CustomModal = ({
     });
   };
 
-  // Handle size checkbox changes
   const handleSizeChange = (size) => {
     setFormData({
       ...formData,
@@ -79,7 +63,10 @@ const CustomModal = ({
     });
   };
 
-  // Handle form submission
+  const resetForm = () => {
+    setFormData(initialFormState);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -92,6 +79,7 @@ const CustomModal = ({
       editProduct(product);
     } else {
       addProduct(product);
+      resetForm(); // Reset the form after successful addition
     }
 
     closeModal();
@@ -100,7 +88,7 @@ const CustomModal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-white/30 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-lg w-full max-w-md mx-4">
         <div className="flex justify-between items-center p-4 border-b">
           <h2 className="text-lg font-semibold text-[#333333]">
@@ -108,11 +96,9 @@ const CustomModal = ({
           </h2>
           <button
             onClick={closeModal}
-            className="text-gray-500 hover:text-gray-700"
+            className="text-gray-500 hover:text-gray-700 cursor-pointer"
           >
-            {/* <XCircle size={24} />
-             */}
-            X
+            <CloseIcon />
           </button>
         </div>
 
@@ -223,10 +209,10 @@ const CustomModal = ({
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#993333]"
                 >
+                  <option value="AUD">AUD</option>
                   <option value="USD">USD</option>
                   <option value="EUR">EUR</option>
                   <option value="GBP">GBP</option>
-                  <option value="JPY">JPY</option>
                 </select>
               </div>
             </div>
