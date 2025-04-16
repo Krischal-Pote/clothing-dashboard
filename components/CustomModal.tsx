@@ -2,7 +2,33 @@
 import { CloseIcon } from "@/icons/SvgCollection";
 import React, { useState, useEffect } from "react";
 
-const CustomModal = ({
+interface ProductData {
+  id: string;
+  productName: string;
+  category: string;
+  color: string;
+  sizes: {
+    S: boolean;
+    M: boolean;
+    L: boolean;
+    XL: boolean;
+  };
+  price: string | number;
+  currency: string;
+  stock: string | number;
+  releaseDate: string;
+}
+
+interface CustomModalProps {
+  isOpen: boolean;
+  closeModal: () => void;
+  addProduct: (product: ProductData) => void;
+  editProduct: (product: ProductData) => void;
+  isEditing?: boolean;
+  productData: ProductData | null;
+}
+
+const CustomModal: React.FC<CustomModalProps> = ({
   isOpen,
   closeModal,
   addProduct,
@@ -18,7 +44,7 @@ const CustomModal = ({
     "Home & Kitchen",
   ];
 
-  const initialFormState = {
+  const initialFormState: ProductData = {
     id: "",
     productName: "",
     category: "",
@@ -35,7 +61,7 @@ const CustomModal = ({
     releaseDate: "",
   };
 
-  const [formData, setFormData] = useState(initialFormState);
+  const [formData, setFormData] = useState<ProductData>(initialFormState);
 
   useEffect(() => {
     if (isEditing && productData) {
@@ -45,7 +71,9 @@ const CustomModal = ({
     }
   }, [isEditing, productData, isOpen]);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -53,12 +81,12 @@ const CustomModal = ({
     });
   };
 
-  const handleSizeChange = (size) => {
+  const handleSizeChange = (size: string) => {
     setFormData({
       ...formData,
       sizes: {
         ...formData.sizes,
-        [size]: !formData.sizes[size],
+        [size]: !formData.sizes[size as keyof typeof formData.sizes],
       },
     });
   };
@@ -67,7 +95,7 @@ const CustomModal = ({
     setFormData(initialFormState);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     const product = {
@@ -105,7 +133,7 @@ const CustomModal = ({
         <form onSubmit={handleSubmit} className="p-4">
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-moncq-black mb-1">
                 Product Name
               </label>
               <input
@@ -113,21 +141,21 @@ const CustomModal = ({
                 name="productName"
                 value={formData.productName}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#993333]"
+                className="w-full px-3 py-2 border border-moncq-pink rounded-md focus:outline-none focus:ring-1 focus:ring-[#993333]"
                 required
               />
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-moncq-black mb-1">
                   Category
                 </label>
                 <select
                   name="category"
                   value={formData.category}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#993333]"
+                  className="w-full px-3 py-2 border border-moncq-pink rounded-md focus:outline-none focus:ring-1 focus:ring-[#993333]"
                   required
                 >
                   <option value="">Select Category</option>
@@ -140,7 +168,7 @@ const CustomModal = ({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-moncq-black mb-1">
                   Color
                 </label>
                 <input
@@ -149,7 +177,7 @@ const CustomModal = ({
                   value={formData.color}
                   onChange={handleInputChange}
                   placeholder="e.g., Red or #FF0000"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#993333]"
+                  className="w-full px-3 py-2 border border-moncq-pink rounded-md focus:outline-none focus:ring-1 focus:ring-[#993333]"
                   required
                 />
               </div>
@@ -157,22 +185,22 @@ const CustomModal = ({
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-moncq-black mb-1">
                   Available Sizes
                 </label>
                 <div className="flex items-center space-x-4">
-                  {["S", "M", "L", "XL"].map((size) => (
+                  {(["S", "M", "L", "XL"] as const).map((size) => (
                     <div key={size} className="flex items-center">
                       <input
                         type="checkbox"
                         id={`size-${size}`}
-                        checked={formData?.sizes[size]}
+                        checked={formData.sizes[size]}
                         onChange={() => handleSizeChange(size)}
-                        className="h-4 w-4 text-[#993333] focus:ring-[#993333] border-gray-300 rounded"
+                        className="h-4 w-4 text-[#993333] focus:ring-[#993333] border-moncq-pink rounded"
                       />
                       <label
                         htmlFor={`size-${size}`}
-                        className="ml-1 text-sm text-gray-700"
+                        className="ml-1 text-sm text-moncq-black"
                       >
                         {size}
                       </label>
@@ -184,7 +212,7 @@ const CustomModal = ({
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-moncq-black mb-1">
                   Price
                 </label>
                 <input
@@ -194,20 +222,20 @@ const CustomModal = ({
                   onChange={handleInputChange}
                   min="0"
                   step="0.01"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#993333]"
+                  className="w-full px-3 py-2 border border-moncq-pink rounded-md focus:outline-none focus:ring-1 focus:ring-[#993333]"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-moncq-black mb-1">
                   Currency
                 </label>
                 <select
                   name="currency"
                   value={formData.currency}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#993333]"
+                  className="w-full px-3 py-2 border border-moncq-pink rounded-md focus:outline-none focus:ring-1 focus:ring-[#993333]"
                 >
                   <option value="AUD">AUD</option>
                   <option value="USD">USD</option>
@@ -219,7 +247,7 @@ const CustomModal = ({
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-moncq-black mb-1">
                   Stock
                 </label>
                 <input
@@ -228,13 +256,13 @@ const CustomModal = ({
                   value={formData.stock}
                   onChange={handleInputChange}
                   min="0"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#993333]"
+                  className="w-full px-3 py-2 border border-moncq-pink rounded-md focus:outline-none focus:ring-1 focus:ring-[#993333]"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-moncq-black mb-1">
                   Release Date
                 </label>
                 <input
@@ -242,7 +270,7 @@ const CustomModal = ({
                   name="releaseDate"
                   value={formData.releaseDate}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#993333]"
+                  className="w-full px-3 py-2 border border-moncq-pink rounded-md focus:outline-none focus:ring-1 focus:ring-[#993333]"
                   required
                 />
               </div>
