@@ -31,7 +31,7 @@ export default function StatCard({
     }
   };
   return (
-    <div className="bg-white p-4 rounded shadow">
+    <div className="bg-white p-4 rounded shadow transform transition-transform duration-300 hover:scale-105">
       <div className="flex justify-between">
         <h3 className="text-sm text-gray-500 mb-1">{title}</h3>
         {renderIcon()}

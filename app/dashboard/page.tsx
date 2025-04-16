@@ -59,27 +59,8 @@ export default async function DashboardPage() {
             </div>
           </div>
           <EngagementStat />
-          {/* <div className="bg-white p-4 rounded shadow">
-            <h2 className="text-lg font-semibold mb-4">
-              Customer Engagement Metrics
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <EngagementStat label="Avg. Cart Size" value="68%" />
-              <EngagementStat label="Website Visits" value="2,456" />
-              <EngagementStat label="Avg. Product Rating" value="4.8/5.0" />
-            </div>
-          </div> */}
         </main>
       </div>
     </div>
   );
 }
-
-// function EngagementStat({ label, value }: { label: string; value: string }) {
-//   return (
-//     <div className="text-center">
-//       <div className="text-lg font-bold text-red-600 mb-1">{value}</div>
-//       <div className="text-sm text-gray-600">{label}</div>
-//     </div>
-//   );
-// }

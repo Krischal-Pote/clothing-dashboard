@@ -21,16 +21,14 @@ export default function TopProducts({ sales }: { sales: Sale[] }) {
         {topProducts.map((item, i) => (
           <li
             key={i}
-            className="flex items-center justify-between bg-[#f9f9f9] p-3 rounded-xl"
+            className="flex items-center justify-between bg-[#f9f9f9] p-3 rounded-xl ransform transition-transform duration-300 hover:scale-105"
           >
             <div className="flex items-center space-x-3">
-              {/* Icon */}
               <div className="w-10 h-10 flex items-center justify-center rounded-lg bg-moncq-pink">
                 <span className="text-lg">
                   <TIcon />
                 </span>
               </div>
-              {/* Product info */}
               <div className="flex flex-col">
                 <span className="text-sm font-semibold text-moncq-black">
                   {item.product}
@@ -40,7 +38,6 @@ export default function TopProducts({ sales }: { sales: Sale[] }) {
                 </span>
               </div>
             </div>
-            {/* Price */}
             <span className="text-sm font-semibold text-moncq-black">
               {item.price}
             </span>
