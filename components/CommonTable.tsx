@@ -4,34 +4,20 @@ import React from "react";
 import { Space, Table, Spin } from "antd";
 import type { TableProps } from "antd";
 import { DeleteIcon, EditIcon } from "@/icons/SvgCollection";
-
-export interface ProductType {
-  id: string;
-  productName: string;
-  category: string;
-  color: string;
-  sizes: {
-    S: boolean;
-    M: boolean;
-    L: boolean;
-    XL: boolean;
-  };
-  price: string;
-  currency: string;
-  stock: string;
-  releaseDate: string;
-}
+import { Product } from "@/types/Product";
 
 interface CommonTableProps {
-  data: ProductType[];
-  onEdit: (record: ProductType) => void;
+  data: Product[];
+  onEdit: (record: Product) => void;
   onDelete: (id: string) => void;
+  loading?: boolean;
 }
 
 const CommonTable: React.FC<CommonTableProps> = ({
   data,
   onEdit,
   onDelete,
+  loading = false,
 }) => {
   const formatSizes = (sizes: any) => {
     return Object.entries(sizes)
@@ -40,7 +26,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
       .join(", ");
   };
 
-  const columns: TableProps<ProductType>["columns"] = [
+  const columns: TableProps<Product>["columns"] = [
     {
       title: "id",
       dataIndex: "id",
@@ -126,11 +112,12 @@ const CommonTable: React.FC<CommonTableProps> = ({
 
   return (
     <div className="relative">
-      <Table<ProductType>
+      <Table<Product>
         columns={columns}
         dataSource={data.map((item) => ({ ...item, key: item.id }))}
         pagination={{ pageSize: 5, position: ["bottomRight"] }}
         className="product-table"
+        loading={loading}
       />
     </div>
   );

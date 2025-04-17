@@ -4,13 +4,17 @@ import Sidebar from "@/components/Sidebar";
 import React, { useEffect, useState } from "react";
 import CommonTable from "@/components/CommonTable";
 import CusstomModal from "@/components/CustomModal";
+import { Spin } from "antd";
+import ProductFilterBar from "@/components/ProductFilterBar";
+import { Product } from "@/types/Product";
 
 const ProductsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [currentProduct, setCurrentProduct] = useState(null);
+  const [currentProduct, setCurrentProduct] = useState<Product | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const storedProducts = localStorage.getItem("products");
@@ -43,21 +47,21 @@ const ProductsPage = () => {
     setIsEditing(false);
   };
 
-  const addProduct = (product) => {
+  const addProduct = (product: Product) => {
     setProducts([...products, product]);
   };
 
-  const editProduct = (product) => {
+  const editProduct = (product: Product) => {
     setProducts(products.map((p) => (p.id === product.id ? product : p)));
   };
 
-  const handleEdit = (product) => {
+  const handleEdit = (product: Product) => {
     setCurrentProduct(product);
     setIsEditing(true);
     setIsOpen(true);
   };
 
-  const handleDelete = (productId) => {
+  const handleDelete = (productId: string) => {
     setProducts(products.filter((p) => p.id !== productId));
   };
 
@@ -83,11 +87,24 @@ const ProductsPage = () => {
             isEditing={isEditing}
             productData={currentProduct}
           />
-          <CommonTable
-            data={products}
-            onEdit={handleEdit}
-            onDelete={handleDelete}
-          />
+          {!isLoaded ? (
+            <div className="flex justify-center items-center h-[60vh]">
+              <Spin size="large" />
+            </div>
+          ) : (
+            <>
+              <ProductFilterBar
+                originalProducts={products}
+                onFilter={setFilteredProducts}
+              />
+              <CommonTable
+                data={filteredProducts}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                loading={false}
+              />
+            </>
+          )}
         </div>
       </div>
     </main>

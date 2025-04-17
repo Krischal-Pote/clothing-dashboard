@@ -1,31 +1,15 @@
 "use client";
 import { CloseIcon } from "@/icons/SvgCollection";
+import { Product } from "@/types/Product";
 import React, { useState, useEffect } from "react";
-
-interface ProductData {
-  id: string;
-  productName: string;
-  category: string;
-  color: string;
-  sizes: {
-    S: boolean;
-    M: boolean;
-    L: boolean;
-    XL: boolean;
-  };
-  price: string | number;
-  currency: string;
-  stock: string | number;
-  releaseDate: string;
-}
 
 interface CustomModalProps {
   isOpen: boolean;
   closeModal: () => void;
-  addProduct: (product: ProductData) => void;
-  editProduct: (product: ProductData) => void;
+  addProduct: (product: Product) => void;
+  editProduct: (product: Product) => void;
   isEditing?: boolean;
-  productData: ProductData | null;
+  productData: Product | null;
 }
 
 const CustomModal: React.FC<CustomModalProps> = ({
@@ -44,7 +28,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
     "Home & Kitchen",
   ];
 
-  const initialFormState: ProductData = {
+  const initialFormState: Product = {
     id: "",
     productName: "",
     category: "",
@@ -61,7 +45,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
     releaseDate: "",
   };
 
-  const [formData, setFormData] = useState<ProductData>(initialFormState);
+  const [formData, setFormData] = useState<Product>(initialFormState);
 
   useEffect(() => {
     if (isEditing && productData) {
@@ -107,7 +91,7 @@ const CustomModal: React.FC<CustomModalProps> = ({
       editProduct(product);
     } else {
       addProduct(product);
-      resetForm(); // Reset the form after successful addition
+      resetForm();
     }
 
     closeModal();
